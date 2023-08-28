@@ -1,73 +1,76 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# Nest Read CSV
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Leitura e upload de arquivo csv
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Pré-requisitos
 
-## Description
+- Node.js 18+ e npm instalados
+- NestJS
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Instalação
 
-## Installation
+1. Clone este repositório.
+2. Execute o seguinte comando para instalar as dependências:
 
-```bash
-$ npm install
+ ```bash
+npm install
 ```
 
-## Running the app
+Configure as variáveis de ambiente necessárias (se aplicável).
+Como Executar
+Para iniciar a aplicação, execute o seguinte comando:
 
-```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+  ```bash
+   npm start
 ```
 
-## Test
+ou
+
+  ```bash
+  npm run start:dev
+  ```
+
+Endpoints
+A seguir estão os endpoints da aplicação que você pode testar:
+
+GET /csv/read
+Descrição: Este endpoint lê e processa um arquivo CSV e retorna os dados lidos como um array de objetos JSON.
+
+Exemplo de solicitação:
 
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+curl -X GET <http://localhost:3000/csv/read>
 ```
 
-## Support
+Exemplo de resposta:
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+json
+```bash
+[
+  {
+    "campo1": "valor1",
+    "campo2": "valor2"
+    // ...
+  },
+  // ...
+]
+```
 
-## Stay in touch
+POST /csv/upload
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+Descrição: Este endpoint permite o upload de um arquivo CSV e processa seus dados.
 
-## License
+Exemplo de solicitação:
 
-Nest is [MIT licensed](LICENSE).
+```bash
+curl -X POST -F "file=@/path/to/file.csv" <http://localhost:3000/csv/upload>
+```
+
+Exemplo de resposta:
+
+json
+```bash
+{
+  "message": "CSV data uploaded and processed successfully"
+}
+```
