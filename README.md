@@ -45,6 +45,7 @@ curl -X GET <http://localhost:3000/csv/read>
 Exemplo de resposta:
 
 json
+
 ```bash
 [
   {
@@ -69,6 +70,7 @@ curl -X POST -F "file=@/path/to/file.csv" <http://localhost:3000/csv/upload>
 Exemplo de resposta:
 
 json
+
 ```bash
 {
   "message": "CSV data uploaded and processed successfully"
