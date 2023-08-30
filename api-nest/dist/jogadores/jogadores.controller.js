@@ -23,8 +23,16 @@ let JogadoresController = exports.JogadoresController = class JogadoresControlle
     async criarAtualizarJogador(criarJogadorDto) {
         await this.jogadoresService.criarAtualizarJogador(criarJogadorDto);
     }
-    async consultarJogadores() {
-        return this.jogadoresService.consultarTodosJogadores();
+    async consultarJogadores(email) {
+        if (email) {
+            return await this.jogadoresService.consultarJogadorPeloEmail(email);
+        }
+        else {
+            return await this.jogadoresService.consultarTodosJogadores();
+        }
+    }
+    async deletarJogador(email) {
+        await this.jogadoresService.deletarJogador(email);
     }
 };
 __decorate([
@@ -36,10 +44,18 @@ __decorate([
 ], JogadoresController.prototype, "criarAtualizarJogador", null);
 __decorate([
     (0, common_1.Get)(),
+    __param(0, (0, common_1.Query)('email')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
+    __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], JogadoresController.prototype, "consultarJogadores", null);
+__decorate([
+    (0, common_1.Delete)(),
+    __param(0, (0, common_1.Query)('email')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], JogadoresController.prototype, "deletarJogador", null);
 exports.JogadoresController = JogadoresController = __decorate([
     (0, common_1.Controller)('api/v1/jogadores'),
     __metadata("design:paramtypes", [jogadores_service_1.JogadoresService])

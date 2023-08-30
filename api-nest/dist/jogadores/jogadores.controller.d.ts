@@ -5,5 +5,6 @@ export declare class JogadoresController {
     private readonly jogadoresService;
     constructor(jogadoresService: JogadoresService);
     criarAtualizarJogador(criarJogadorDto: CriarJogador): Promise<void>;
-    consultarJogadores(): Promise<Jogador[]>;
+    consultarJogadores(email: string): Promise<Jogador | Jogador[]>;
+    deletarJogador(email: string): Promise<void>;
 }

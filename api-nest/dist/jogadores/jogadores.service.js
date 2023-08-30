@@ -17,13 +17,27 @@ let JogadoresService = exports.JogadoresService = JogadoresService_1 = class Jog
     }
     async criarAtualizarJogador(criarJogadorDto) {
         const { email } = criarJogadorDto;
-        const jogadorEncontrado = await this.jogadores.find((jogador) => jogador.email === email);
+        const jogadorEncontrado = this.jogadores.find((jogador) => jogador.email === email);
         if (jogadorEncontrado) {
-            await this.atualizarJogador();
+            this.atualizarJogador(jogadorEncontrado, criarJogadorDto);
         }
         else {
-            await this.criarJogador(criarJogadorDto);
+            this.criarJogador(criarJogadorDto);
         }
+    }
+    async consultarTodosJogadores() {
+        return this.jogadores;
+    }
+    async consultarJogadorPeloEmail(email) {
+        const jogadorEncontrado = this.jogadores.find(jogador => jogador.email === email);
+        if (!jogadorEncontrado) {
+            throw new Error(`Jogador com e-mail ${email} não encontrado`);
+        }
+        return jogadorEncontrado;
+    }
+    async deletarJogador(email) {
+        const jogadorEncontrado = this.jogadores.find(jogador => jogador.email === email);
+        this.jogadores = this.jogadores.filter(jogador => jogador.email !== jogadorEncontrado.email);
     }
     criarJogador(criarJogadorDto) {
         const { email, telefoneCelular, nome } = criarJogadorDto;
@@ -32,14 +46,16 @@ let JogadoresService = exports.JogadoresService = JogadoresService_1 = class Jog
             nome,
             email,
             telefoneCelular,
-            ranking: 'A',
+            ranking: "A",
             posicaoRanking: 1,
-            urlFotoJogador: 'www.google.com.br/foto123.jpg',
+            urlFotoJogador: "www.google.com.br/foto123.jpg",
         };
         this.logger.log(`jogador: ${JSON.stringify(jogador)}`);
         this.jogadores.push(jogador);
     }
-    atualizarJogador() {
+    atualizarJogador(jogadorEncontrado, criarJogadorDto) {
+        const { nome } = criarJogadorDto;
+        jogadorEncontrado.nome = nome;
     }
 };
 exports.JogadoresService = JogadoresService = JogadoresService_1 = __decorate([
