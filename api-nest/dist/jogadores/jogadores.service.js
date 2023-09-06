@@ -5,60 +5,60 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
 var JogadoresService_1;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.JogadoresService = void 0;
 const common_1 = require("@nestjs/common");
-const uuid_1 = require("uuid");
+const mongoose_1 = require("@nestjs/mongoose");
+const mongoose_2 = require("mongoose");
 let JogadoresService = exports.JogadoresService = JogadoresService_1 = class JogadoresService {
-    constructor() {
-        this.jogadores = [];
+    constructor(jogadorModel) {
+        this.jogadorModel = jogadorModel;
         this.logger = new common_1.Logger(JogadoresService_1.name);
     }
     async criarAtualizarJogador(criarJogadorDto) {
         const { email } = criarJogadorDto;
-        const jogadorEncontrado = this.jogadores.find((jogador) => jogador.email === email);
+        const jogadorEncontrado = await this.jogadorModel.findOne({ email }).exec();
         if (jogadorEncontrado) {
-            this.atualizarJogador(jogadorEncontrado, criarJogadorDto);
+            await this.atualizarJogador(criarJogadorDto);
         }
         else {
-            this.criarJogador(criarJogadorDto);
+            await this.criarJogador(criarJogadorDto);
         }
     }
     async consultarTodosJogadores() {
-        return this.jogadores;
+        return await this.jogadorModel.find().exec();
     }
     async consultarJogadorPeloEmail(email) {
-        const jogadorEncontrado = this.jogadores.find(jogador => jogador.email === email);
+        const jogadorEncontrado = await this.jogadorModel.findOne({ email }).exec();
         if (!jogadorEncontrado) {
             throw new Error(`Jogador com e-mail ${email} não encontrado`);
         }
         return jogadorEncontrado;
     }
     async deletarJogador(email) {
-        const jogadorEncontrado = this.jogadores.find(jogador => jogador.email === email);
-        this.jogadores = this.jogadores.filter(jogador => jogador.email !== jogadorEncontrado.email);
+        const jogadorEncontrado = await this.jogadorModel.findOne({ email }).exec();
+        return jogadorEncontrado.remove();
     }
-    criarJogador(criarJogadorDto) {
-        const { email, telefoneCelular, nome } = criarJogadorDto;
-        const jogador = {
-            _id: (0, uuid_1.v4)(),
-            nome,
-            email,
-            telefoneCelular,
-            ranking: "A",
-            posicaoRanking: 1,
-            urlFotoJogador: "www.google.com.br/foto123.jpg",
-        };
-        this.logger.log(`jogador: ${JSON.stringify(jogador)}`);
-        this.jogadores.push(jogador);
+    async criarJogador(criarJogadorDto) {
+        const jogadorCriado = new this.jogadorModel(criarJogadorDto);
+        return await jogadorCriado.save();
     }
-    atualizarJogador(jogadorEncontrado, criarJogadorDto) {
-        const { nome } = criarJogadorDto;
-        jogadorEncontrado.nome = nome;
+    async atualizarJogador(criarJogadorDto) {
+        return await this.jogadorModel
+            .findOneAndUpdate({ email: criarJogadorDto.email }, { $set: criarJogadorDto })
+            .exec();
     }
 };
 exports.JogadoresService = JogadoresService = JogadoresService_1 = __decorate([
-    (0, common_1.Injectable)()
+    (0, common_1.Injectable)(),
+    __param(0, (0, mongoose_1.InjectModel)('Jogador')),
+    __metadata("design:paramtypes", [mongoose_2.Model])
 ], JogadoresService);
 //# sourceMappingURL=jogadores.service.js.map
