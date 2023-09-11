@@ -43,8 +43,8 @@ let JogadoresService = exports.JogadoresService = JogadoresService_1 = class Jog
         return jogadorEncontrado;
     }
     async deletarJogador(email) {
-        const jogadorEncontrado = await this.jogadorModel.findOne({ email }).exec();
-        return jogadorEncontrado.remove();
+        const jogadorRemovido = await this.jogadorModel.deleteOne({ email }).exec();
+        return jogadorRemovido + 'Jogador Deletado';
     }
     async criarJogador(criarJogadorDto) {
         const jogadorCriado = new this.jogadorModel(criarJogadorDto);

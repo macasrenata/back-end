@@ -85,9 +85,9 @@ export class JogadoresService {
 
     // vamos refatorar o codigo para usar o mongoDB
 
-    const jogadorEncontrado = await this.jogadorModel.findOne({ email }).exec(); // busca o jogador pelo email
+    const jogadorRemovido = await this.jogadorModel.deleteOne({ email }).exec(); // busca o jogador pelo email
 
-    return jogadorEncontrado.remove(); // deleta o jogador encontrado, atualizando o array de jogadores menos o encontrado
+    return jogadorRemovido + 'Jogador Deletado'; // deleta o jogador encontrado, atualizando o array de jogadores menos o encontrado
 
   }
 

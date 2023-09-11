@@ -5,7 +5,8 @@ import { JogadoresController } from './jogadores/jogadores.controller';
 import { JogadoresService } from './jogadores/jogadores.service';
 @Module({
   imports: [
-    MongooseModule.forRoot( process.env.MONGO_DB, 
+    MongooseModule.forRoot( 'mongodb+srv://macasrenata:teste123@cluster0.ehw2vfs.mongodb.net/api-nest?retryWrites=true&w=majority',
+      // process.env.MONGO_DB, 
    ), // configuração do mongoDB
     JogadoresModule
   ], // entrada e saida do module (importar outros modules)

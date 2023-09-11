@@ -16,6 +16,7 @@ exports.JogadoresController = void 0;
 const common_1 = require("@nestjs/common");
 const criar_jogador_dto_1 = require("./dtos/criar-jogador.dto");
 const jogadores_service_1 = require("./jogadores.service");
+const jogadores_vbalidacao_parametros_pipe_1 = require("./pipes/jogadores-vbalidacao-parametros.pipe");
 let JogadoresController = exports.JogadoresController = class JogadoresController {
     constructor(jogadoresService) {
         this.jogadoresService = jogadoresService;
@@ -37,6 +38,7 @@ let JogadoresController = exports.JogadoresController = class JogadoresControlle
 };
 __decorate([
     (0, common_1.Post)(),
+    (0, common_1.UsePipes)(common_1.ValidationPipe),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [criar_jogador_dto_1.CriarJogador]),
@@ -44,14 +46,14 @@ __decorate([
 ], JogadoresController.prototype, "criarAtualizarJogador", null);
 __decorate([
     (0, common_1.Get)(),
-    __param(0, (0, common_1.Query)('email')),
+    __param(0, (0, common_1.Query)('email', jogadores_vbalidacao_parametros_pipe_1.JogadoresValidacaoParametrosPipe)),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], JogadoresController.prototype, "consultarJogadores", null);
 __decorate([
     (0, common_1.Delete)(),
-    __param(0, (0, common_1.Query)('email')),
+    __param(0, (0, common_1.Query)('email', jogadores_vbalidacao_parametros_pipe_1.JogadoresValidacaoParametrosPipe)),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
