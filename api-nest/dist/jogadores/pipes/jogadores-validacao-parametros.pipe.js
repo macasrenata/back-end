@@ -12,4 +12,4 @@ class JogadoresValidacaoParametrosPipe {
     }
 }
 exports.JogadoresValidacaoParametrosPipe = JogadoresValidacaoParametrosPipe;
-//# sourceMappingURL=jogadores-vbalidacao-parametros.pipe.js.map
+//# sourceMappingURL=jogadores-validacao-parametros.pipe.js.map

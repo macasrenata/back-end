@@ -22,38 +22,40 @@ let JogadoresService = exports.JogadoresService = JogadoresService_1 = class Jog
         this.jogadorModel = jogadorModel;
         this.logger = new common_1.Logger(JogadoresService_1.name);
     }
-    async criarAtualizarJogador(criarJogadorDto) {
+    async criarJogador(criarJogadorDto) {
         const { email } = criarJogadorDto;
         const jogadorEncontrado = await this.jogadorModel.findOne({ email }).exec();
         if (jogadorEncontrado) {
-            await this.atualizarJogador(criarJogadorDto);
+            throw new common_1.NotFoundException(`Jogador com e-mail ${email} já cadastrado`);
         }
-        else {
-            await this.criarJogador(criarJogadorDto);
+        await this.criarJogador(criarJogadorDto);
+        const jogadorCriado = new this.jogadorModel(criarJogadorDto);
+        await jogadorCriado.save();
+    }
+    async atualizarJogador(_id, criarJogadorDto) {
+        const { email } = criarJogadorDto;
+        const jogadorEncontrado = await this.jogadorModel.findOne({ _id }).exec();
+        if (!jogadorEncontrado) {
+            throw new common_1.NotFoundException(`Jogador com e-mail ${email} não encontrado`);
         }
+        await this.jogadorModel.findOneAndUpdate({ _id }, { $set: criarJogadorDto }).exec();
     }
     async consultarTodosJogadores() {
         return await this.jogadorModel.find().exec();
     }
-    async consultarJogadorPeloEmail(email) {
-        const jogadorEncontrado = await this.jogadorModel.findOne({ email }).exec();
+    async consultarJogadorId(_id) {
+        const jogadorEncontrado = await this.jogadorModel.findOne({ _id }).exec();
         if (!jogadorEncontrado) {
-            throw new Error(`Jogador com e-mail ${email} não encontrado`);
+            throw new Error(`Jogador com e-mail ${_id} não encontrado`);
         }
         return jogadorEncontrado;
     }
-    async deletarJogador(email) {
-        const jogadorRemovido = await this.jogadorModel.deleteOne({ email }).exec();
+    async deletarJogador(_id) {
+        const jogadorRemovido = await this.jogadorModel.deleteOne({ _id }).exec();
+        if (!jogadorRemovido) {
+            throw new Error(`Jogador com e-mail ${_id} não encontrado`);
+        }
         return jogadorRemovido + 'Jogador Deletado';
-    }
-    async criarJogador(criarJogadorDto) {
-        const jogadorCriado = new this.jogadorModel(criarJogadorDto);
-        return await jogadorCriado.save();
-    }
-    async atualizarJogador(criarJogadorDto) {
-        return await this.jogadorModel
-            .findOneAndUpdate({ email: criarJogadorDto.email }, { $set: criarJogadorDto })
-            .exec();
     }
 };
 exports.JogadoresService = JogadoresService = JogadoresService_1 = __decorate([

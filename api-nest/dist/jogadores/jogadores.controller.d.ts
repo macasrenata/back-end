@@ -4,7 +4,9 @@ import { Jogador } from './interfaces/jogador.interface';
 export declare class JogadoresController {
     private readonly jogadoresService;
     constructor(jogadoresService: JogadoresService);
-    criarAtualizarJogador(criarJogadorDto: CriarJogador): Promise<void>;
-    consultarJogadores(email: string): Promise<Jogador | Jogador[]>;
-    deletarJogador(email: string): Promise<void>;
+    criarJogador(criarJogadorDto: CriarJogador): Promise<void>;
+    atualizarJogador(criarJogadorDto: CriarJogador, _id: string): Promise<void>;
+    consultarJogadores(): Promise<Jogador | Jogador[]>;
+    consultarJogadoresId(_id: string): Promise<Jogador[] | Jogador>;
+    deletarJogador(_id: string): Promise<void>;
 }
