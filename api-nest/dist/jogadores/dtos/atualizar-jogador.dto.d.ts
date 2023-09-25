@@ -1,5 +1,4 @@
-export declare class CriarJogadorDTO {
+export declare class AtualizarJogadorDto {
     readonly telefoneCelular: string;
-    readonly email: string;
     readonly nome: string;
 }

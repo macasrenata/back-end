@@ -6,32 +6,32 @@ export declare const jogadorSchema: mongoose.Schema<any, mongoose.Model<any, any
     createdAt: NativeDate;
     updatedAt: NativeDate;
 } & {
-    telefoneCelular?: string;
-    email?: string;
     nome?: string;
     ranking?: string;
     posicaoRanking?: number;
     urlFotoJogador?: string;
+    email?: string;
+    telefoneCelular?: string;
 }, mongoose.Document<unknown, {}, {
     createdAt: NativeDate;
     updatedAt: NativeDate;
 } & {
-    telefoneCelular?: string;
-    email?: string;
     nome?: string;
     ranking?: string;
     posicaoRanking?: number;
     urlFotoJogador?: string;
+    email?: string;
+    telefoneCelular?: string;
 }> & {
     createdAt: NativeDate;
     updatedAt: NativeDate;
 } & {
-    telefoneCelular?: string;
-    email?: string;
     nome?: string;
     ranking?: string;
     posicaoRanking?: number;
     urlFotoJogador?: string;
+    email?: string;
+    telefoneCelular?: string;
 } & {
     _id: mongoose.Types.ObjectId;
 }>;

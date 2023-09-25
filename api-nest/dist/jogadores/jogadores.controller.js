@@ -17,6 +17,7 @@ const common_1 = require("@nestjs/common");
 const criar_jogador_dto_1 = require("./dtos/criar-jogador.dto");
 const jogadores_service_1 = require("./jogadores.service");
 const jogadores_validacao_parametros_pipe_1 = require("./pipes/jogadores-validacao-parametros.pipe");
+const atualizar_jogador_dto_1 = require("./dtos/atualizar-jogador.dto");
 let JogadoresController = exports.JogadoresController = class JogadoresController {
     constructor(jogadoresService) {
         this.jogadoresService = jogadoresService;
@@ -24,14 +25,14 @@ let JogadoresController = exports.JogadoresController = class JogadoresControlle
     async criarJogador(criarJogadorDto) {
         return await this.jogadoresService.criarJogador(criarJogadorDto);
     }
-    async atualizarJogador(criarJogadorDto, _id) {
-        await this.jogadoresService.atualizarJogador(_id, criarJogadorDto);
+    async atualizarJogador(atualizarJogador, _id) {
+        await this.jogadoresService.atualizarJogador(_id, atualizarJogador);
     }
     async consultarJogadores() {
         return await this.jogadoresService.consultarTodosJogadores();
     }
     async consultarJogadoresId(_id) {
-        return await this.jogadoresService.consultarJogadorId(_id);
+        return await this.jogadoresService.consultarJogadorPeloId(_id);
     }
     async deletarJogador(_id) {
         await this.jogadoresService.deletarJogador(_id);
@@ -42,16 +43,16 @@ __decorate([
     (0, common_1.UsePipes)(common_1.ValidationPipe),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [criar_jogador_dto_1.CriarJogador]),
+    __metadata("design:paramtypes", [criar_jogador_dto_1.CriarJogadorDTO]),
     __metadata("design:returntype", Promise)
 ], JogadoresController.prototype, "criarJogador", null);
 __decorate([
-    (0, common_1.Put)('/:_id'),
+    (0, common_1.Put)("/:_id"),
     (0, common_1.UsePipes)(common_1.ValidationPipe),
     __param(0, (0, common_1.Body)()),
-    __param(1, (0, common_1.Param)('_id', jogadores_validacao_parametros_pipe_1.JogadoresValidacaoParametrosPipe)),
+    __param(1, (0, common_1.Param)("_id", jogadores_validacao_parametros_pipe_1.JogadoresValidacaoParametrosPipe)),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [criar_jogador_dto_1.CriarJogador, String]),
+    __metadata("design:paramtypes", [atualizar_jogador_dto_1.AtualizarJogadorDto, String]),
     __metadata("design:returntype", Promise)
 ], JogadoresController.prototype, "atualizarJogador", null);
 __decorate([
@@ -61,21 +62,21 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], JogadoresController.prototype, "consultarJogadores", null);
 __decorate([
-    (0, common_1.Get)('/:_id'),
-    __param(0, (0, common_1.Param)('_id', jogadores_validacao_parametros_pipe_1.JogadoresValidacaoParametrosPipe)),
+    (0, common_1.Get)("/:_id"),
+    __param(0, (0, common_1.Param)("_id", jogadores_validacao_parametros_pipe_1.JogadoresValidacaoParametrosPipe)),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], JogadoresController.prototype, "consultarJogadoresId", null);
 __decorate([
-    (0, common_1.Delete)('/:_id'),
-    __param(0, (0, common_1.Param)('_id', jogadores_validacao_parametros_pipe_1.JogadoresValidacaoParametrosPipe)),
+    (0, common_1.Delete)("/:_id"),
+    __param(0, (0, common_1.Param)("_id", jogadores_validacao_parametros_pipe_1.JogadoresValidacaoParametrosPipe)),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], JogadoresController.prototype, "deletarJogador", null);
 exports.JogadoresController = JogadoresController = __decorate([
-    (0, common_1.Controller)('api/v1/jogadores'),
+    (0, common_1.Controller)("api/v1/jogadores"),
     __metadata("design:paramtypes", [jogadores_service_1.JogadoresService])
 ], JogadoresController);
 //# sourceMappingURL=jogadores.controller.js.map
